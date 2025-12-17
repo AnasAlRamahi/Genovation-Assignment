@@ -2,7 +2,7 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
 
-## Development server
+## Running the project
 
 To start a local development server, you should have these installed on your machine:
   - Git (and git bash in case you are using windows)
@@ -28,3 +28,4 @@ Once the server is running, open your browser and navigate to `http://localhost:
 Going thorugh the assignment, I assumed that:
 - I had to use Primeng components to implement the design.
 - The 2 cards that don't appear in the dashboard on desktop window size are hidden unless on mobile size.
+- I assumed that the icon in the last column of the table is to add new column, and we can adjust their values if we click on the pen icon of any row.
