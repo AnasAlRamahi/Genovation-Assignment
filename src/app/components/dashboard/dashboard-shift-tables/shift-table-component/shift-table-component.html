@@ -33,10 +33,28 @@
             <th style="width:20%">SIM</th>
             <th style="width:20%">Fleet</th>
             <th style="width:20%">Status</th>
+            @for (item of newlyAddedColumns; track item) {
+            <th style="width:20%">{{ item }}</th>
+            }
             <th style="width:12%">
-              <div class="w-10 h-10 flex items-center justify-center bg-[#252836] rounded-[10px]">
-                <p-avatar image="assets/svg/columns-plus-left.svg" [pt]="{host: {class: 'w-6 h-6'}}"></p-avatar>
+              @if (showColumnNameInput) {
+              <div class="flex justify-center gap-4">
+                <input pInputText type="text" [(ngModel)]="newColumnName"
+                  style="background-color: #252836; max-width: 200px;" />
+                <button class="bg-[#CECBDE10] px-4 py-2 rounded-[15px] cursor-pointer" (click)="onConfirmColumnName()">
+                  <i class="pi pi-check"></i>
+                </button>
+                <button class="bg-[#CECBDE10] px-4 py-2 rounded-[15px] cursor-pointer" (click)="cancelColumnName()">
+                  <i class="pi pi-times"></i>
+                </button>
               </div>
+              } @else {
+              <button class="w-10 h-10 flex items-center justify-center bg-[#252836] rounded-[10px]"
+                (click)="onAddColumn()">
+                <p-avatar image="assets/svg/columns-plus-left.svg"
+                  [pt]="{host: {class: 'w-6 h-6 cursor-pointer'}}"></p-avatar>
+              </button>
+              }
             </th>
           </tr>
         </ng-template>
@@ -136,16 +154,28 @@
                 </ng-template>
               </p-cellEditor>
             </td>
+            @for (item of newlyAddedColumns; track item) {
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product[item]" required />
+                </ng-template>
+                <ng-template #output>
+                  {{product[item]}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            }
             <td>
               <div class="flex items-center justify-center gap-2">
                 @if (!editing) {
-                  <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                    (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
+                <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
                 } @else {
-                  <button pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                    (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
-                  <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                    (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                <button pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
+                <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
                 }
               </div>
             </td>

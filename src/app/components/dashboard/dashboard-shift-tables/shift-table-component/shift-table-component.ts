@@ -23,9 +23,16 @@ import { ToastModule } from 'primeng/toast';
 })
 export class ShiftTableComponent implements OnInit {
   products: any[] = [];
+  newProductsColumns: any[] = [];
+
+  newlyAddedColumns: string[] = [];
+  // newlyAddedColumnsValues: any[] = [];
   statuses!: SelectItem[];
   clonedProducts: { [s: string]: any } = {};
   messageService: MessageService = inject(MessageService);
+
+  showColumnNameInput: boolean = false;
+  newColumnName: string = '';
 
   ngOnInit() {
     this.products = [
@@ -78,5 +85,26 @@ export class ShiftTableComponent implements OnInit {
   onRowEditCancel(product: any, index: number) {
     this.products[index] = this.clonedProducts[product.id as string] as never;
     delete this.clonedProducts[product.id as string];
+  }
+
+  onAddColumn() {
+    this.showColumnNameInput = true;
+    this.newColumnName = '';
+  }
+
+  onConfirmColumnName() {
+    this.showColumnNameInput = false;
+    this.newlyAddedColumns.push(this.newColumnName);
+
+    this.products.map((item, index) => {
+      return { ...item, ...{ [this.newColumnName]: '' } };
+    })
+
+    this.newColumnName = '';
+  }
+
+  cancelColumnName() {
+    this.showColumnNameInput = false;
+    this.newColumnName = '';
   }
 }
