@@ -8,11 +8,13 @@
       <p-button label="Export" icon="pi pi-download" (onClick)="{}" class="border-none rounded-[10px]"
         [pt]="exportButtonPT" />
       <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
-        chooseIcon="pi pi-upload" auto customUpload class="mr-2 inline-block border-none rounded-[10px]"
-        [pt]="importButtonPT" />
+        chooseIcon="pi pi-upload" auto customUpload
+        class="mr-2 inline-block border-none rounded-[10px] file-upload-transparent-bg" [pt]="importButtonPT" />
     </div>
   </div>
-  <app-shift-table-component />
-  <p-divider class="my-15" type="dotted" />
-  <app-shift-table-component />
+  <div>
+    <app-shift-table-component />
+    <p-divider class="my-15" type="dotted" />
+    <app-shift-table-component />
+  </div>
 </div>

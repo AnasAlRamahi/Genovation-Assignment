@@ -73,6 +73,12 @@ p-select {
   background-color: #1F1D2B;
 }
 
+.file-upload-transparent-bg {
+  .p-fileupload-choose-button:not(:hover) {
+    background-color: transparent;
+  }
+}
+
 .p-panelmenu-header-link:has(svg) {
   flex-direction: row-reverse;
   justify-content: space-between;

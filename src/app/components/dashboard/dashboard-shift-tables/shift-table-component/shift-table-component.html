@@ -138,12 +138,15 @@
             </td>
             <td>
               <div class="flex items-center justify-center gap-2">
-                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                  (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                  (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                  (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                @if (!editing) {
+                  <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                    (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
+                } @else {
+                  <button pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                    (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
+                  <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                    (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                }
               </div>
             </td>
           </tr>

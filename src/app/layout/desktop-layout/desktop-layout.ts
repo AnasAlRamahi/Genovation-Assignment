@@ -6,6 +6,7 @@ import { AvatarModule, AvatarPassThrough } from 'primeng/avatar';
 import { PanelMenuModule, PanelMenuPassThrough } from 'primeng/panelmenu';
 import { filter, Observable } from 'rxjs';
 import { LayoutService } from '../layout.service';
+import { RoutesService } from '../routes.service';
 import { menuAvatarIconPt, panelMenuCollapsedPt, panelMenuPt, userAvatarPt } from '../styledComponents';
 
 @Component({
@@ -27,6 +28,7 @@ import { menuAvatarIconPt, panelMenuCollapsedPt, panelMenuPt, userAvatarPt } fro
 export class DesktopLayout {
   cd: ChangeDetectorRef = inject(ChangeDetectorRef);
   layoutService: LayoutService = inject(LayoutService);
+  routesService: RoutesService = inject(RoutesService);
 
   activeRoute = signal<string>('');
   
@@ -51,43 +53,11 @@ export class DesktopLayout {
   }
 
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Dashboard',
-        iconPath: 'assets/svg/chart-donut.svg',
-        route: '/',
-        toActivateRoute: '/',
-      },
-      {
-        label: 'Report',
-        iconPath: 'assets/svg/clipboard-text.svg',
-        route: '/report',
-        toActivateRoute: '/reportc',
-      },
-      {
-        label: 'Organization',
-        iconPath: 'assets/svg/gear.svg',
-        toActivateRoute: '/add-user',
-        items: [
-          {
-            label: 'Users',
-            iconPath: 'assets/svg/users.svg',
-            addButton: true,
-            toActivateRoute: '/add-user',
-          },
-        ]
-      }
-    ];
+    this.items = this.routesService.items;
   }
 
   handleToggle() {
     this.layoutService.toggleCollapsed()
     this.cd.detectChanges()
   }
-
-  // selectItem(item: any) {
-  //   if (!item?.items?.length) {
-  //     this.selectedItem = item;
-  //   }
-  // }
 }

@@ -1,4 +1,4 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router, RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { Avatar, AvatarPassThrough } from "primeng/avatar";
@@ -6,8 +6,9 @@ import { ButtonModule } from 'primeng/button';
 import { DrawerModule, DrawerPassThrough } from 'primeng/drawer';
 import { Menubar } from 'primeng/menubar';
 import { PanelMenu, PanelMenuPassThrough } from 'primeng/panelmenu';
-import { dashboardAvatarPt, drawerPt, menuAvatarIconPt, menuButtonAvatarPt, panelMenuPt, userAvatarPt } from '../styledComponents';
 import { filter } from 'rxjs';
+import { RoutesService } from '../routes.service';
+import { dashboardAvatarPt, drawerPt, menuAvatarIconPt, menuButtonAvatarPt, panelMenuPt, userAvatarPt } from '../styledComponents';
 
 @Component({
   selector: 'app-mobile-tablet-layout',
@@ -17,14 +18,16 @@ import { filter } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class MobileTabletLayout {
+  routesService: RoutesService = inject(RoutesService);
+
   activeRoute = signal<string>('');
 
   items: MenuItem[] = [];
+  routesVisible: boolean = false;
   selectedItem = {
     label: 'Dashboard',
     iconPath: 'assets/svg/chart-donut.svg',
   };
-  routesVisible: boolean = false;
 
   userAvatarPt: AvatarPassThrough = userAvatarPt;
   dashboardAvatarPt: AvatarPassThrough = dashboardAvatarPt;
@@ -40,35 +43,9 @@ export class MobileTabletLayout {
       this.activeRoute.set(event.url);
     });
   }
-  
+
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Dashboard',
-        iconPath: 'assets/svg/chart-donut.svg',
-        route: '/',
-        toActivateRoute: '/',
-      },
-      {
-        label: 'Report',
-        iconPath: 'assets/svg/clipboard-text.svg',
-        route: '/report',
-        toActivateRoute: '/reportc',
-      },
-      {
-        label: 'Organization',
-        iconPath: 'assets/svg/gear.svg',
-        toActivateRoute: '/add-user',
-        items: [
-          {
-            label: 'Users',
-            iconPath: 'assets/svg/users.svg',
-            addButton: true,
-            toActivateRoute: '/add-user',
-          },
-        ]
-      }
-    ];
+    this.items = this.routesService.items;
   }
 
   selectItem(item: any) {

@@ -31,5 +31,7 @@ import { Doughnut } from "../../shared/doughnut/doughnut";
   `,
 })
 export class DashboardCardsContainer {
-
+  floorValue(value1: number, value2: number): number {
+    return Math.floor(value1 * 100 / value2);
+  }
 }
