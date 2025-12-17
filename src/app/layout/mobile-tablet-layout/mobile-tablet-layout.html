@@ -1,0 +1,56 @@
+<p-drawer [(visible)]="routesVisible" position="top" [pt]="drawerPt" class="h-fit bg-[#10141A]">
+  <ng-template #header>
+    <div class="flex items-center gap-2">
+      <img src="/assets/logo/logo.svg" alt="Image" class="w-16 h-15 mr-7.5" />
+    </div>
+  </ng-template>
+
+  <div class="card flex flex-col items-start">
+    <p-panelmenu [model]="items" class="w-full" [pt]="panelMenuPt">
+      <ng-template #item let-item>
+        <a pRipple class="flex justify-between items-center cursor-pointer group" (click)="selectItem(item)">
+          <div pRipple class="flex gap-5 items-center px-4 py-5 cursor-pointer group">
+            <p-avatar [image]="item.iconPath"
+              [class]="item.label === selectedItem.label ? 'bg-[#00C5D6]' : 'bg-[#252836]'" [pt]="menuAvatarIconPt" />
+            <span class="font-bold text-xs text-[#00C5D6]"
+              [class]="item.label === selectedItem.label ? 'text-[#00C5D6]' : 'text-[#706D7E]'">{{ item.label }}</span>
+          </div>
+          @if (item.addButton) {
+          <a routerLink="/add-user" class="cursor-pointer">
+            <p-avatar icon="pi pi-plus" class="mx-4 bg-[#00C5D6]" [pt]="menuAvatarIconPt" />
+          </a>
+          }
+        </a>
+      </ng-template>
+    </p-panelmenu>
+  </div>
+
+  <ng-template #footer>
+    <div class="flex items-center gap-2 mt-14.5">
+      <p-avatar image="assets/images/avatar.png" [pt]="userAvatarPt"></p-avatar>
+      <div class="flex flex-col">
+        <span class="font-bold">John Doe</span>
+        <span>Admin</span>
+      </div>
+    </div>
+  </ng-template>
+</p-drawer>
+
+<p-menubar class="border-none bg-[#10141A] px-3.75 py-4.5">
+  <ng-template #start>
+    <img src="/assets/logo/logo.svg" alt="Image" class="w-16 h-15 mr-7.5" />
+    <div class="flex gap-2.5 items-center">
+      <p-avatar [image]="selectedItem.iconPath" [pt]="dashboardAvatarPt" />
+      <span class="font-bold text-xs text-[#00C5D6] invisible sm:visible">{{ selectedItem.label }}</span>
+    </div>
+
+  </ng-template>
+  <ng-template #end>
+    <div class="flex items-center gap-7.5">
+      <p-avatar image="assets/images/avatar.png" [pt]="userAvatarPt"></p-avatar>
+      <p-button type="button" (click)="routesVisible = true" icon="pi pi-bars" [pt]="menuButtonAvatarPt" />
+    </div>
+  </ng-template>
+</p-menubar>
+
+<router-outlet />

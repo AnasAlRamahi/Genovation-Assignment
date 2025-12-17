@@ -30,6 +30,7 @@
               }
             ],
             "styles": [
+              "src/assets/fonts/Poppins/poppins.scss",
               "src/styles.scss"
             ]
           },

@@ -1,0 +1,154 @@
+<div id="shift-info" class="my-15 xl:my-5">
+  <div id="shift-title-container" class="w-full flex gap-2.5">
+    <div class="w-10 h-10 flex justify-center items-center">
+      <p-avatar image="assets/svg/clock-user.svg"></p-avatar>
+    </div>
+    <div class="flex flex-col">
+      <span><b>Afternoon Shift</b></span>
+      <span>12:00 PM - 08:00 PM </span>
+    </div>
+  </div>
+
+  <div id="shift-table-container">
+    <div class="card mt-5">
+      <p-toast />
+      <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template #header>
+          <tr>
+            <th pSortableColumn="Vehicle" style="width:20%">
+              <div class="flex items-center gap-2">
+                Vehicle
+                <p-sortIcon field="Vehicle" />
+              </div>
+            </th>
+            <th pSortableColumn="PlateNumber" style="width:20%">
+              <div class="flex items-center gap-2">
+                Plate Num.
+                <p-sortIcon field="PlateNumber" />
+              </div>
+            </th>
+            <th style="width:20%">Odometer</th>
+            <th style="width:20%">GPS</th>
+            <th style="width:20%">Device</th>
+            <th style="width:20%">SIM</th>
+            <th style="width:20%">Fleet</th>
+            <th style="width:20%">Status</th>
+            <th style="width:12%">
+              <div class="w-10 h-10 flex items-center justify-center bg-[#252836] rounded-[10px]">
+                <p-avatar image="assets/svg/columns-plus-left.svg" [pt]="{host: {class: 'w-6 h-6'}}"></p-avatar>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="product">
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.Vehicle" />
+                </ng-template>
+                <ng-template #output>
+                  <div class="flex items-center gap-2.5">
+                    <p-avatar image="assets/svg/suv.svg" class="w-8.5 h-5"
+                      [pt]="{host: {class: 'w-8.5 h-5'}}"></p-avatar>
+                    {{product.Vehicle}}
+                  </div>
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.PlateNumber" required />
+                </ng-template>
+                <ng-template #output>
+                  {{product.PlateNumber}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.Odometer" required />
+                </ng-template>
+                <ng-template #output>
+                  {{product.Odometer}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.GPS" />
+                </ng-template>
+                <ng-template #output>
+                  {{product.GPS}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.Device" />
+                </ng-template>
+                <ng-template #output>
+                  <div class="flex flex-col item-center">
+                    <span class="flex items-center">
+                      <p-avatar image="assets/svg/lightning.svg" class="w-6 h-6"
+                        [pt]="{host: {class: 'w-6 h-6'}}"></p-avatar>
+                      {{product.Device[0]}}</span>
+                    <span>{{product.Device[1]}}</span>
+                  </div>
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.SIM" />
+                </ng-template>
+                <ng-template #output>
+                  <div class="flex flex-col item-center">
+                    <span>{{product.SIM[0]}}</span>
+                    <span>{{product.SIM[1]}}</span>
+                  </div>
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <input pInputText type="text" [(ngModel)]="product.Fleet" />
+                </ng-template>
+                <ng-template #output>
+                  {{product.Fleet}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template #input>
+                  <p-select [options]="statuses" appendTo="body" [(ngModel)]="product.Status"
+                    class="w-full custom-select" [pt]="{listContainer: {class: 'bg-[#1F1D2B] br-[10px]'}}" />
+                </ng-template>
+                <ng-template #output>
+                  <p-tag [value]="product.Status" />
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <div class="flex items-center justify-center gap-2">
+                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

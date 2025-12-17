@@ -1,0 +1,121 @@
+<div id="add-user-header" class="w-full  p-2.5">
+  <div class="flex items-center justify-between py-1">
+    <div class="flex items-center gap-3">
+      <a routerLink="/dashboard" class="cursor-pointer">
+        <i class="pi pi-chevron-left"></i>
+      </a>
+      <div class="flex flex-col">
+        <span><b>Add User</b></span>
+        <span>Organization</span>
+      </div>
+    </div>
+    <div class="flex item-center gap-3">
+      <p-button routerLink="/" icon="pi pi-times" label="Cancel" severity="secondary"
+        [pt]="{root: {class: 'bg-transparent'}}" />
+      <p-button (onClick)="onSubmit()" [disabled]="!userForm.valid" icon="pi pi-check" label="Save"
+        severity="success" />
+    </div>
+  </div>
+  <p-divider />
+</div>
+<div class="flex justify-center p-7.5">
+  <form [formGroup]="userForm" class="w-70 sm:w-163">
+    <div id="user-photo" class="flex flex-col items-center gap-[15px] mb-15">
+      @if (imgPreview()) {
+      <img [src]="imgPreview()" alt="Uploaded image preview" class="w-50 h-50 rounded-[15px] object-cover" />
+      }
+      <p-fileupload mode="basic" [auto]="false" [showUploadButton]="false" [showCancelButton]="false"
+        chooseLabel="Update Image" chooseIcon="pi pi-camera" name="image-upload" accept="image/*" maxFileSize="1000000"
+        (onSelect)="onFileSelected($event)" [pt]="{pcChooseButton: { root: {class: 'h-15'}}}" />
+    </div>
+    <div id="main-form">
+      <div class="flex lg:flex-nowrap flex-wrap items-start justify-center gap-2.5 w-full">
+        <div class="w-full lg:w-52.5 flex flex-col gap-2 mb-[15px]">
+          <label class="text-[13px]" for="first-name">First Name <span class="text-error">*</span></label>
+          <input pInputText id="first-name" type="text" filled pSize="large" aria-describedby="first-name-help"
+            formControlName="firstName" class="h-10 p-4" />
+          @if (userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched) {
+          <small id="first-name-error" class="text-error">First Name is required</small>
+          }
+        </div>
+        <div class="w-full lg:w-52.5 flex flex-col gap-2 mb-[15px]">
+          <label class="text-[13px]" for="middle-name">Middle Name</label>
+          <input pInputText id="middle-name" type="text" filled pSize="large" aria-describedby="middle-name-help"
+            formControlName="middleName" class="h-10 p-4" />
+        </div>
+        <div class="w-full lg:w-52.5 flex flex-col gap-2 mb-[15px]">
+          <label class="text-[13px]" for="last-name">Last Name <span class="text-error">*</span></label>
+          <input pInputText id="last-name" type="text" filled pSize="large" aria-describedby="last-name-help"
+            formControlName="lastName" class="h-10 p-4" />
+          @if (userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched) {
+          <small id="last-name-error" class="text-error">Last Name is required</small>
+          }
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <label class="text-[13px]" for="email">Email <span class="text-error">*</span></label>
+        <p-iconfield>
+          <p-inputicon class="pi pi-envelope pl-3" />
+          <input pInputText id="email" type="text" filled pSize="large" aria-describedby="email-help"
+            formControlName="email" class="w-full h-10 p-4 pl-14" placeholder="something@example.com" />
+        </p-iconfield>
+        @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+          @if (userForm.get('email')?.errors?.['required']) {
+            <small id="email-error" class="text-error">Email is required</small>
+          }
+          @if (userForm.get('email')?.errors?.['email']) {
+            <small id="email-error" class="text-error">Email is invalid</small>
+          }
+        }
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <label class="text-[13px]" for="phone-number">Phone <span class="text-error">*</span></label>
+        <p-icon-field>
+          <p-inputicon class="pi pi-phone pl-3" />
+          <input pInputText id="phone-number" type="tel" filled pSize="large" aria-describedby="phone-number-help"
+            formControlName="phoneNumber" class="w-full h-10 pl-14" placeholder="+962781841029" />
+        </p-icon-field>
+        @if (userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched) {
+          @if (userForm.get('phoneNumber')?.errors?.['required']) {
+            <small id="phone-number-error" class="text-error">Phone Number is required</small>
+          }
+          @if (userForm.get('phoneNumber')?.errors?.['pattern']){
+            <small id="phone-number-error" class="text-error">Phone Number is invalid</small>
+          }
+        }
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <div class="flex items-center gap-2">
+          <label class="text-[13px]" for="rfid">RFID</label>
+          <p-toggleswitch (onChange)="rfidToggleChange()" name="rfidToggle"
+            [pt]="{handle: {class: !rfidCheck ? '': 'bg-[#252836]'}, slider: {class: !rfidCheck ? 'bg-[#1F1D2B]' : 'bg-[#00C5D6]'}}" />
+        </div>
+        <input pInputText id="rfid" type="text" filled pSize="large" aria-describedby="rfid-help" formControlName="rfid"
+          class="h-10 p-4" [hidden]="!rfidCheck" />
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <label class="text-[13px]" for="role">Role <span class="text-error">*</span></label>
+        <input pInputText id="role" type="text" filled pSize="large" aria-describedby="role-help" formControlName="role"
+          class="h-10 p-4" />
+        @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
+        <small id="role-error" class="text-error">Role is required</small>
+        }
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <label class="text-[13px]" for="department">Department <span class="text-error">*</span></label>
+        <input pInputText id="department" type="text" filled pSize="large" aria-describedby="department-help"
+          formControlName="department" class="h-10 p-4" />
+        @if (userForm.get('department')?.invalid && userForm.get('department')?.touched) {
+        <small id="department-error" class="text-error">Department is required</small>
+        }
+      </div>
+      <div class="flex flex-col gap-2 mb-[15px]">
+        <label class="text-[13px]" for="fleet">Fleet</label>
+        <p-select [options]="fleetOptions" optionLabel="name" optionValue="code" [showClear]="true"
+          placeholder="Select a Fleet" class="w-full" formControlName="fleet" />
+      </div>
+    </div>
+
+    <!-- <button type="submit" [disabled]="!userForm.valid">Submit</button> -->
+  </form>
+</div>

@@ -1,1 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+@import "primeicons/primeicons.css";
+
+:root {
+  --p-primary-color: #252836;
+  --p-primary-100: var(--p-slate-100);
+  --p-primary-200: var(--p-slate-200);
+  --p-primary-300: var(--p-slate-300);
+  --p-primary-400: var(--p-slate-400);
+  --p-primary-500: var(--p-slate-500);
+  --p-primary-600: var(--p-slate-600);
+  --p-primary-700: var(--p-slate-700);
+  --p-primary-800: var(--p-slate-800);
+  --p-primary-900: var(--p-slate-900);
+  --p-primary-950: var(--p-slate-950);
+  --p-primary-contrast-color: #CECBDE;
+  --p-button-primary-hover-color: #3E3B4E;
+}
+
+body {
+  font-family: 'Poppins', 'Courier New', Courier, monospace;
+  background-color: #252836;
+  color: var(--p-primary-contrast-color);
+}
+
+th {
+  background-color: #1F1D2B;
+}
+
+tr {
+  background: transparent;
+}
+
+th,
+td {
+  border-bottom: 1px solid #464353;
+  color: var(--p-primary-contrast-color);
+}
+
+input {
+  background-color: #1F1D2B;
+  border: none;
+  border-radius: 10px;
+}
+
+input:disabled {
+  background-color: #1F1D2B66;
+}
+
+p-select {
+  background-color: #1F1D2B;
+  border: none;
+}
+
+.p-select-list {
+  border-radius: 10px;
+}
+
+.p-select-list {
+  background-color: #1F1D2B;
+  border: none;
+}
+
+.p-fileupload-basic-content {
+  flex-direction: column-reverse;
+}
+
+.p-fileupload-choose-button:not(:hover) {
+  background-color: #1F1D2B;
+}
+
+.p-panelmenu-header-link:has(svg) {
+  flex-direction: row-reverse;
+  justify-content: space-between; 
+}
+
+.p-panelmenu-panel {
+  background-color: transparent;
+  border: none;
+}
+
+.text-error {
+  color: #FF6B6B;
+}

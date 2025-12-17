@@ -1,0 +1,80 @@
+<div class="w-full relative flex">
+  <div class="sticky top-0 w-24 h-screen py-7.5 bg-[#10141A] side-panel-transition"
+    [class]="(collapsed | async) ? 'w-24' : 'w-76'" style="box-shadow: 16px 0px 30px 0px #00000033;">
+    <div class="w-full flex flex-col h-100% items-center justify-between h-full">
+      <div id="desktop-layout-logo" class="w-full flex flex-col items-center gap-5 mb-5">
+        @if (collapsed | async) {
+        <img src="/assets/logo/logo.svg" alt="Image" class="w-16 h-15" />
+        } @else {
+        <img src="/assets/logo/logo-big.svg" alt="Image" class="w-38 h-18" />
+        }
+        <button class="w-full bg-[#1F1D2B] cursor-pointer" (click)="handleToggle()">
+          <p-avatar icon="pi pi-list" class="bg-transparent"></p-avatar>
+        </button>
+      </div>
+
+      <div id="desktop-layout-navigation" class="w-full h-0 side-panel-content-transition"
+        [class]="(collapsed | async) ? 'flex items-center' : 'h-full'">
+        <div class="flex items-center justify-center w-full">
+          @if (collapsed | async) {
+          <p-panelmenu [model]="items" class="w-full" [pt]="panelMenuCollapsedPt">
+            <ng-template #item let-item let-expanded="expanded">
+              <div pRipple class="flex items-center cursor-pointer group"
+                [class]="(collapsed | async) ? 'justify-center' : 'justify-between'" (click)="selectItem(item)">
+                <a pRipple class="flex flex-col gap-1 items-center py-2.5 cursor-pointer group"
+                  [routerLink]="item.route ? [item.route] : null">
+                  <p-avatar [image]="item.iconPath"
+                    [class]="item.label === selectedItem.label ? 'bg-[#00C5D6]' : 'bg-[#252836]'"
+                    [pt]="menuAvatarIconPt" />
+                  <span
+                    class="font-bold text-xs text-[#00C5D6] whitespace-nowrap overflow-hidden text-ellipsis text-center w-22"
+                    [class]="item.label === selectedItem.label ? 'text-[#00C5D6]' : 'text-[#706D7E]'">{{ item.label
+                    }}</span>
+                </a>
+                @if (item.addButton) {
+                <a routerLink="/add-user" class="cursor-pointer">
+                  <p-avatar icon="pi pi-plus" class="mx-4 bg-[#00C5D6]" [pt]="menuAvatarIconPt" />
+                </a>
+                }
+              </div>
+            </ng-template>
+          </p-panelmenu>
+          } @else {
+          <p-panelmenu [model]="items" class="w-full" [pt]="panelMenuPt">
+            <ng-template #item let-item let-expanded="expanded">
+              <div pRipple class="flex justify-between items-center cursor-pointer group" (click)="selectItem(item)">
+                <a pRipple class="flex gap-5 items-center px-4 py-2.5 cursor-pointer group"
+                  [routerLink]="item.route ? [item.route] : null">
+                  <p-avatar [image]="item.iconPath"
+                    [class]="item.label === selectedItem.label ? 'bg-[#00C5D6]' : 'bg-[#252836]'"
+                    [pt]="menuAvatarIconPt" />
+                  <span class="font-bold text-xs text-[#00C5D6]"
+                    [class]="item.label === selectedItem.label ? 'text-[#00C5D6]' : 'text-[#706D7E]'">{{ item.label
+                    }}</span>
+                </a>
+                @if (item.addButton) {
+                <a routerLink="/add-user" class="cursor-pointer">
+                  <p-avatar icon="pi pi-plus" class="mx-4 bg-[#00C5D6]" [pt]="menuAvatarIconPt" />
+                </a>
+                }
+              </div>
+            </ng-template>
+          </p-panelmenu>
+          }
+        </div>
+      </div>
+
+      <div id="desktop-layout-profile" class="w-100% flex items-center justify-center gap-4">
+        <p-avatar image="assets/images/avatar.png" [pt]="userAvatarPt"></p-avatar>
+        <div class="flex flex-col side-menu-profile-transition overflow-hidden"
+          [class]="(collapsed | async) ? 'h-0 w-0' : 'h-full w-100%'">
+          <span class="font-bold text-nowrap">John Doe</span>
+          <span class="text-nowrap">Admin</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <router-outlet />
+  </div>
+</div>
