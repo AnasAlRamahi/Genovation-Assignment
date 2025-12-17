@@ -91,9 +91,29 @@ p-select {
 
 .collapsed-submenu {
 
-  .p-panelmenu-root-list,
-  .p-panelmenu-submenu {
-    transform: translateX(92px);
-    backdrop-filter: blur(35px)
+  .p-panelmenu-submenu > li {
+    position: relative;
+    transform: translateX(76px);
+    backdrop-filter: blur(35px);
+    border: 1px solid #464353;
+  }
+
+  .p-panelmenu-submenu>li::before {
+    content: 'Assets';
+    color: #CECBDE;
+    font-weight: bold;
+    padding: 24px 0 0 110px;
+    position: absolute;
+    z-index: 100;
+    top: -73px;
+    right: -1px;
+    bottom: 72px;
+    left: -96px;
+    background-color: #252836;
+    backdrop-filter: blur(35px);
+    border: 1px solid #464353;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
   }
 }
