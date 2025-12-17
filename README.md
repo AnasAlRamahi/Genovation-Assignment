@@ -12,12 +12,18 @@ To start a local development server, you should have these installed on your mac
 Now you should be able to get the project and run it. Use GitBash in the folder you want the project to be in and then do this sequence of commands in order:
 
 ```bash
+git clone https://github.com/AnasAlRamahi/Genovation-Assignment.git
+
+cd Genovation-Assignment/
+
+npm install
+
 ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`.
 
-## Assumptions going through the assignment
+## Assumptions
 
 Going thorugh the assignment, I assumed that:
 - I had to use Primeng components to implement the design.
