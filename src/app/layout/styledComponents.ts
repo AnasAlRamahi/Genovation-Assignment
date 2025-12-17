@@ -76,9 +76,12 @@ export const panelMenuPt: PanelMenuPassThrough = {
 
 export const panelMenuCollapsedPt: PanelMenuPassThrough = {
   panel: {
-    // class: 'w-full h-fit bg-transparent border-none',
+    class: 'relative z-1000',
   },
   header: {
-    // class: 'w-full gap-0'
+    class: 'relative z-1000',
   },
+  submenu: {
+    class: 'bg-white'
+  }
 };

@@ -8,19 +8,22 @@
   <div class="card flex flex-col items-start">
     <p-panelmenu [model]="items" class="w-full" [pt]="panelMenuPt">
       <ng-template #item let-item>
-        <a pRipple class="flex justify-between items-center cursor-pointer group" (click)="selectItem(item)">
-          <div pRipple class="flex gap-5 items-center px-4 py-5 cursor-pointer group">
+        <div pRipple class="flex justify-between items-center cursor-pointer group" (click)="selectItem(item)">
+          <a pRipple class="flex gap-5 items-center px-4 py-5 cursor-pointer group"
+            [routerLink]="item.route ? [item.route] : null">
             <p-avatar [image]="item.iconPath"
-              [class]="item.label === selectedItem.label ? 'bg-[#00C5D6]' : 'bg-[#252836]'" [pt]="menuAvatarIconPt" />
+              [class]="item.toActivateRoute == activeRoute() ? 'bg-[#00C5D6]' : 'bg-[#252836]'"
+              [pt]="menuAvatarIconPt" />
             <span class="font-bold text-xs text-[#00C5D6]"
-              [class]="item.label === selectedItem.label ? 'text-[#00C5D6]' : 'text-[#706D7E]'">{{ item.label }}</span>
-          </div>
+              [class]="item.toActivateRoute == activeRoute() ? 'text-[#00C5D6]' : 'text-[#706D7E]'">{{ item.label
+              }}</span>
+          </a>
           @if (item.addButton) {
           <a routerLink="/add-user" class="cursor-pointer">
             <p-avatar icon="pi pi-plus" class="mx-4 bg-[#00C5D6]" [pt]="menuAvatarIconPt" />
           </a>
           }
-        </a>
+        </div>
       </ng-template>
     </p-panelmenu>
   </div>

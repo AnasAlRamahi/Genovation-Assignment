@@ -17,6 +17,10 @@
   --p-button-primary-hover-color: #3E3B4E;
 }
 
+.text-error {
+  color: #FF6B6B;
+}
+
 body {
   font-family: 'Poppins', 'Courier New', Courier, monospace;
   background-color: #252836;
@@ -71,7 +75,7 @@ p-select {
 
 .p-panelmenu-header-link:has(svg) {
   flex-direction: row-reverse;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .p-panelmenu-panel {
@@ -79,6 +83,11 @@ p-select {
   border: none;
 }
 
-.text-error {
-  color: #FF6B6B;
+.collapsed-submenu {
+
+  .p-panelmenu-root-list,
+  .p-panelmenu-submenu {
+    transform: translateX(92px);
+    backdrop-filter: blur(35px)
+  }
 }
